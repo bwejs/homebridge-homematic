@@ -56,7 +56,7 @@ function HomeKitGenericService(log,platform, id ,name, type ,adress,special, cfg
   this.delayOnSet = 0;
   this.runsInTestMode = (typeof global.it === 'function');
   this.persistentStates = {};
-
+  this.strictAdress = false;
   var that = this;
 
   if (that.adress.indexOf("CUxD.") > -1) {
@@ -664,6 +664,9 @@ HomeKitGenericService.prototype = {
       }
 
       if (tp[1] == 'PRESS_SHORT') {
+        if (this.strictAdress && this.adress != channel) {
+            return;
+        }
         var targetChar = that.currentStateCharacteristic[tp[1]];
         if (targetChar != undefined) {
           // The value property of ProgrammableSwitchEvent must be one of the following:
@@ -681,6 +684,9 @@ HomeKitGenericService.prototype = {
         return;
       }
       if (tp[1] == 'PRESS_LONG') {
+        if (this.strictAdress && this.adress != channel) {
+            return;
+        }
         var targetChar = that.currentStateCharacteristic[tp[1]];
         if (targetChar != undefined) {
           targetChar.setValue(2);

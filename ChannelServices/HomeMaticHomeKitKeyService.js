@@ -17,6 +17,7 @@ HomeMaticHomeKitKeyService.prototype.createDeviceService = function(Service, Cha
 	var cc = key.getCharacteristic(Characteristic.ProgrammableSwitchEvent);
 	this.currentStateCharacteristic["PRESS_SHORT"] = cc;
   this.currentStateCharacteristic["PRESS_LONG"] = cc;
+  this.strictAdress = true;
 	this.services.push(key);
 
 }
