@@ -55,6 +55,7 @@ function HomeKitGenericService (log, platform, id, name, type, adress, special, 
   this.delayOnSet = 0
   this.runsInTestMode = (typeof global.it === 'function')
   this.persistentStates = {}
+  this.strictAdress = true;
 
   var that = this
 
@@ -594,6 +595,11 @@ HomeKitGenericService.prototype = {
 
     if ((channel !== undefined) && (dp !== undefined)) {
       var tp = this.transformDatapoint(dp)
+
+      if (this.strictAdress && this.adress != channel){
+        return;
+    }
+
 
       if (tp[1] === 'LOWBAT') {
         that.lowBat = newValue
